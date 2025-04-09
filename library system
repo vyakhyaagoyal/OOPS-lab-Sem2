@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+class Book {
+    private String title;
+    private boolean isAvailable;
+
+    public Book(String title) {
+        this.title = title;
+        this.isAvailable = true;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void borrow() {
+        if (isAvailable) {
+            isAvailable = false;
+            System.out.println("You borrowed: " + title);
+        } else {
+            System.out.println("Sorry, the book is already borrowed.");
+        }
+    }
+
+    public void returnBook() {
+        isAvailable = true;
+        System.out.println("You returned: " + title);
+    }
+}
+
+public class LibrarySystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Book book1 = new Book("Java Programming");
+        Book book2 = new Book("Data Structures");
+
+        System.out.println("Library System");
+        System.out.println("Available books: ");
+        System.out.println("1. " + book1.getTitle());
+        System.out.println("2. " + book2.getTitle());
+
+        System.out.println("Enter the book number to borrow (1 or 2): ");
+        int choice = sc.nextInt();
+
+        if (choice == 1) {
+            book1.borrow();
+        } else if (choice == 2) {
+            book2.borrow();
+        } else {
+            System.out.println("Invalid choice");
+        }
+
+        System.out.println("Do you want to return a book? (yes/no): ");
+        String returnChoice = sc.next();
+
+        if (returnChoice.equalsIgnoreCase("yes")) {
+            if (choice == 1) {
+                book1.returnBook();
+            } else if (choice == 2) {
+                book2.returnBook();
+            }
+        }
+
+        sc.close();
+    }
+}
