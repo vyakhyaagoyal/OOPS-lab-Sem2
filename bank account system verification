@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+class BankAccount {
+    private String accountHolder;
+    private double balance;
+    private String password;
+    
+    public BankAccount(String accountHolder, String password) {
+        this.accountHolder = accountHolder;
+        this.password = password;
+        this.balance = 0.0;
+    }
+
+    public boolean verifyPassword(String inputPassword) {
+        return password.equals(inputPassword);
+    }
+
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: $" + amount);
+    }
+
+    public void withdraw(double amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrew: $" + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+public class BankAccountSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        BankAccount account = new BankAccount("John Doe", "password123");
+        
+        System.out.println("Enter password to access your account:");
+        String inputPassword = sc.nextLine();
+        
+        if (account.verifyPassword(inputPassword)) {
+            System.out.println("Password verified successfully!");
+            account.deposit(500);
+            account.withdraw(200);
+            System.out.println("Current Balance: $" + account.getBalance());
+        } else {
+            System.out.println("Invalid password");
+        }
+
+        sc.close();
+    }
+}
